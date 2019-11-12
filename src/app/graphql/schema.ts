@@ -1,4 +1,4 @@
-import { gql } from 'apollo-server-koa'
+import { gql } from 'apollo-server-koa';
 
 const typeDefs = gql`
 scalar Binary
@@ -46,6 +46,6 @@ type Mutation {
   cancelVirtualBalance(account: ID!, context: String!): Boolean!
   commitVirtualBalance(account: ID!, context: String!): Boolean!
 }
-`
+`;
 
-export default typeDefs
+export default typeDefs;
