@@ -1,5 +1,9 @@
 {
-  "dependencies": {},
+  "dependencies": {
+    "apollo-server-koa": "^2.9.7",
+    "graphql": "^14.5.8",
+    "koa": "^2.11.0"
+  },
   "devDependencies": {
     "@types/koa": "^2.0.52",
     "@types/node": "^12.12.7",
