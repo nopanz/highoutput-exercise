@@ -13,8 +13,12 @@
         "esModuleInterop": true,
         "resolveJsonModule": true
     },
-    "exclude": [
-        "./init-mongo.js",
-        "./build",
-    ]
+    "include": [
+        "src/**/*.ts",
+        "typings/*.d.ts"
+      ],
+     "exclude": [
+        "node_modules",
+        "build"
+     ]
 }
