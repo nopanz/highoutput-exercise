@@ -1,7 +1,13 @@
-import { model, Schema } from 'mongoose';
+import { model, Schema , Document } from 'mongoose';
 
-const balancesSchema = new Schema({
-  balance: Schema.Types.Decimal128,
+export interface IBalance extends Document {
+  balance: number;
+  context?: string;
+  type: string;
+}
+
+const schema = {
+  balance: { type: Number, default: 0 },
   context: {
     type: String,
     unique: true,
@@ -10,6 +16,7 @@ const balancesSchema = new Schema({
     type: String,
     enum: ['current', 'reserved', 'virtual'],
   },
-});
+};
+const balancesSchema = new Schema(schema, { timestamps: true });
 
-export default model('Balances', balancesSchema);
+export default model<IBalance>('Balances', balancesSchema);

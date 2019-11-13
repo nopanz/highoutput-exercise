@@ -1,15 +1,22 @@
-import { model, Schema } from 'mongoose';
+import { model, Schema, Document } from 'mongoose';
+import { IBalance } from './Balance';
 
-const accountsSchema = new Schema({
-  _id: Schema.Types.ObjectId,
+export interface IAccount extends Document {
+  id: string;
+  balance: number;
+  reservedBalance?: [object];
+  virtualBalance?: [object];
+}
+
+const schema = {
   id: {
     type: String,
     index: true,
     unique: true,
   },
   balance: {
-    type: Schema.Types.ObjectId,
-    ref: 'Balances',
+    type: Number,
+    default: 0,
   },
   reservedBalance: [
     {
@@ -23,6 +30,8 @@ const accountsSchema = new Schema({
       ref: 'Balances',
     },
   ],
-});
+};
 
-export default model('Accounts', accountsSchema);
+const accountsSchema = new Schema(schema, { timestamps: true });
+
+export default model<IAccount>('Accounts', accountsSchema);
