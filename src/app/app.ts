@@ -14,7 +14,11 @@ export default {
   start: () => {
     app.listen({ port: PORT }, () => {
       const dbUri = `mongodb://${DB_USERNAME}:${DB_PASSWORD}@${DB_HOST}:${DB_PORT}/${DB_NAME}`;
-      mongoose.connect(dbUri, { useNewUrlParser: true, useUnifiedTopology: true });
+      mongoose.connect(dbUri, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true ,
+        useCreateIndex: true,
+      });
 
       const db = mongoose.connection;
       db.on('error', console.error.bind(console, 'connection err:'));
