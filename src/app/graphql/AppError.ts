@@ -8,6 +8,7 @@ class AppError extends Error {
   static get CODE () {
     return {
       E_VALIDATIONFAILED: 'E_VALIDATION_FAILED',
+      E_INVALID_INPUT: 'E_INVALID_INPUT',
     };
   }
 }
