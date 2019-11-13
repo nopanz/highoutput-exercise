@@ -1,7 +1,9 @@
-import typeDefs from './schema';
-import resolvers from './resolvers';
+import typeDefs from './Schema';
+import resolvers from './Resolvers';
+import formatError from './FormatError';
 
-export {
-    typeDefs,
-    resolvers,
+export  {
+  typeDefs,
+  resolvers,
+  formatError,
 };
