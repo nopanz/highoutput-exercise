@@ -13,5 +13,8 @@
         "esModuleInterop": true,
         "resolveJsonModule": true
     },
-    "exclude": ["./init-mongo.js"]
+    "exclude": [
+        "./init-mongo.js",
+        "./build",
+    ]
 }
