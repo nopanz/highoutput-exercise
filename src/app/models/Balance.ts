@@ -1,6 +1,6 @@
 import { model, Schema , Document } from 'mongoose';
 
-export interface IBalance extends Document {
+export interface Balance extends Document {
   balance: number;
   context?: string;
   type: string;
@@ -14,9 +14,13 @@ const schema = {
   },
   type: {
     type: String,
-    enum: ['current', 'reserved', 'virtual'],
+    enum: ['reserved', 'virtual'],
+  },
+  account: {
+    type: Schema.Types.ObjectId,
+    ref: 'Accounts',
   },
 };
 const balancesSchema = new Schema(schema, { timestamps: true });
 
-export default model<IBalance>('Balances', balancesSchema);
+export default model<Balance>('Balances', balancesSchema);
