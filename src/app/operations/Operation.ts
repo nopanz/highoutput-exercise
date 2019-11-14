@@ -31,7 +31,7 @@ class Operation {
     if (!valid) {
       if (this.validator.errors !== null && this.validator.errors !== undefined) {
         if (this.validator.errors[0].message !== undefined) {
-          throw new AppError(this.validator.errors[0].message, AppError.CODE.E_VALIDATIONFAILED);
+          throw new AppError(this.validator.errors[0].message, AppError.CODE.E_VALIDATION_FAILED);
         }
 
       }

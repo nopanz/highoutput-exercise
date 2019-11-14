@@ -1,6 +1,5 @@
 import Operation from './Operation';
 import Account from '../models/Account';
-import Balance, { IBalance } from '../models/Balance';
 import AppError from '../graphql/AppError';
 
 class AccountsOperation extends Operation {
