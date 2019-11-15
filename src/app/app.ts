@@ -1,9 +1,10 @@
+/* eslint-disable no-console */
 import Koa from 'koa';
-import * as graphlSchema from './graphql';
 import { ApolloServer } from 'apollo-server-koa';
+import mongoose from 'mongoose';
+import * as graphlSchema from './graphql';
 import DatabaseConfig from '../config/database';
 import { PORT } from '../config/server';
-import mongoose from 'mongoose';
 
 const server = new ApolloServer(graphlSchema);
 
@@ -16,7 +17,7 @@ export default {
     app.listen({ port: PORT }, () => {
       mongoose.connect(DatabaseConfig.dbUri, {
         useNewUrlParser: true,
-        useUnifiedTopology: true ,
+        useUnifiedTopology: true,
         useCreateIndex: true,
       });
 

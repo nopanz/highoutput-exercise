@@ -1,4 +1,4 @@
-import { model, Schema , Document } from 'mongoose';
+import { model, Schema, Document } from 'mongoose';
 
 export interface Balance extends Document {
   balance: number;
