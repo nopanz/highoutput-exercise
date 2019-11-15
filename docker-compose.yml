@@ -5,11 +5,28 @@ services:
     container_name: 'highoutput-mongo-db'
     restart: always
     environment:
-      - MONGO_INITDB_DATABASE=${DB_NAME}
-      - MONGO_INITDB_ROOT_USERNAME=${DB_ROOT_USERNAME}
-      - MONGO_INITDB_ROOT_PASSWORD=${DB_ROOT_PASSWORD}
+      MONGO_INITDB_DATABASE: ${DB_NAME}
+      MONGO_INITDB_ROOT_USERNAME: ${DB_ROOT_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+      ENV_DB_USER: ${DB_USER}
+      ENV_DB_PASSWORD: ${DB_PASSWORD}
     volumes:
-      - ./init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js:ro
+      - ./mongo/init.sh:/docker-entrypoint-initdb.d/init.sh:ro
       - ./data/db:/data/db
     ports:
       - 27017:27017
+  database.test:
+    image: 'mongo'
+    container_name: 'highoutput-mongo-test-db'
+    restart: always
+    environment:
+      MONGO_INITDB_DATABASE: ${DB_TEST_NAME}
+      MONGO_INITDB_ROOT_USERNAME: ${DB_ROOT_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+      ENV_DB_USER: ${DB_TEST_USER}
+      ENV_DB_PASSWORD: ${DB_TEST_PASSWORD}
+    volumes:
+      - ./mongo/init-test.sh:/docker-entrypoint-initdb.d/init-test.sh:ro
+      - ./data/db-test:/data/db
+    ports:
+      - 27018:27017
