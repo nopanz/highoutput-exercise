@@ -1,7 +1,8 @@
 import Koa from 'koa';
 import * as graphlSchema from './graphql';
 import { ApolloServer } from 'apollo-server-koa';
-import { PORT, DB_USERNAME, DB_PASSWORD, DB_PORT, DB_HOST, DB_NAME } from '../config/env';
+import DatabaseConfig from '../config/database';
+import { PORT } from '../config/server';
 import mongoose from 'mongoose';
 
 const server = new ApolloServer(graphlSchema);
@@ -13,8 +14,7 @@ server.applyMiddleware({ app });
 export default {
   start: () => {
     app.listen({ port: PORT }, () => {
-      const dbUri = `mongodb://${DB_USERNAME}:${DB_PASSWORD}@${DB_HOST}:${DB_PORT}/${DB_NAME}`;
-      mongoose.connect(dbUri, {
+      mongoose.connect(DatabaseConfig.dbUri, {
         useNewUrlParser: true,
         useUnifiedTopology: true ,
         useCreateIndex: true,
