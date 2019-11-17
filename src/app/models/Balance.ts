@@ -4,6 +4,7 @@ export interface Balance extends Document {
   balance: number;
   context?: string;
   type: string;
+  account: { balance: number};
 }
 
 const schema = {

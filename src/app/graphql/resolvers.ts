@@ -2,11 +2,20 @@ import AccountsOperation from '../operations/AccountsOperation';
 
 export default {
   Mutation: {
-    updateBalance: async (root: any, { account, delta }: {account: string, delta: number}) => {
+    updateBalance: async (root: object, { account, delta }: {account: string; delta: number}) => {
       const op = new AccountsOperation();
       op.account = account;
       op.delta = delta;
       await op.updateBalance();
+      return true;
+    },
+    createReservedBalance: async (root: object, { account, context, amount }:
+    {account: string; context: string; amount: number}) => {
+      const op = new AccountsOperation();
+      op.account = account;
+      op.amount = amount;
+      op.context = context;
+      await op.createReservedBalance();
       return true;
     },
   },

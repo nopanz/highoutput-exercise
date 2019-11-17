@@ -20,7 +20,9 @@ class Operation {
     return this.setSchema();
   }
 
-  setSchema(schemas?: JsonSchema) {
+  setSchema(common?: object, schemas?: JsonSchema) {
+    let selectedSchema: object | undefined;
+
     const defaultSchema = {
       properties: {
         scenario: {
@@ -30,7 +32,13 @@ class Operation {
       required: ['scenario'],
     };
     if (schemas !== undefined) {
-      return mergeDeepWith(concat, defaultSchema, schemas[this.scenario]);
+      selectedSchema = schemas[this.scenario];
+
+      if (common !== undefined) {
+        selectedSchema = mergeDeepWith(concat, common, selectedSchema);
+      }
+
+      return mergeDeepWith(concat, defaultSchema, selectedSchema);
     }
     return defaultSchema;
   }
