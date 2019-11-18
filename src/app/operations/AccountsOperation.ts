@@ -1,65 +1,21 @@
-import Operation from './Operation';
 import Account from '../models/Account';
 import Balance from '../models/Balance';
 import AppError from '../graphql/AppError';
 
-enum BALANCE_TYPE {
+export enum BALANCE_TYPE {
   RESERVED = 'reserved',
   VIRTUAL = 'virtual'
 }
 
 interface AccountsOperation {
-  account?: string;
-  delta?: number;
+  account: string;
+  delta: number;
   context?: string;
   amount: number;
 }
 
-class AccountsOperation extends Operation implements AccountsOperation {
-  get jsonSchema() {
-    const { UPDATE_BALANCE, CREATE_RESERVED_BALANCE } = AccountsOperation.scenarios;
-    const schama = {
-      [UPDATE_BALANCE]: {
-        properties: {
-          delta: {
-            type: 'number',
-          },
-        },
-        required: ['account', 'delta'],
-      },
-      [CREATE_RESERVED_BALANCE]: {
-        properties: {
-          context: {
-            type: 'string',
-          },
-          amount: {
-            type: 'number',
-          },
-        },
-        required: ['account', 'context', 'amount'],
-      },
-    };
-
-    const common = {
-      properties: {
-        account: {
-          type: 'string',
-        },
-      },
-    };
-    return this.setSchema(common, schama);
-  }
-
-  static get scenarios() {
-    return {
-      UPDATE_BALANCE: 'update-balance',
-      CREATE_RESERVED_BALANCE: 'createReservedBalance',
-    };
-  }
-
+class AccountsOperation implements AccountsOperation {
   async updateBalance() {
-    this.scenario = AccountsOperation.scenarios.UPDATE_BALANCE;
-    this.validate();
     let account = await Account.findOne({ id: this.account }).exec();
     if (!account) {
       account = new Account({ id: this.account });
@@ -76,8 +32,6 @@ class AccountsOperation extends Operation implements AccountsOperation {
   }
 
   async createReservedBalance() {
-    this.scenario = AccountsOperation.scenarios.CREATE_RESERVED_BALANCE;
-    this.validate();
     const account = await Account.findOne({ id: this.account }).exec();
     if (!account) {
       throw new AppError('Account does not exist', AppError.CODE.E_ACCOUNT_NOT_FOUND);
@@ -99,10 +53,33 @@ class AccountsOperation extends Operation implements AccountsOperation {
       account: account._id,
       balance: this.amount,
     });
-
     account.balance -= this.amount;
     await account.save();
 
+    return balance.save().then((result) => result.populate('account').execPopulate());
+  }
+
+  async updateReservedBalance() {
+    const account = await Account.findOne({ id: this.account }).exec();
+
+    if (!account) {
+      throw new AppError('Account does not exist', AppError.CODE.E_ACCOUNT_NOT_FOUND);
+    }
+
+    const balance = await Balance.findOne({
+      account: account._id,
+      context: this.context,
+      type: BALANCE_TYPE.RESERVED,
+    }).exec();
+
+    if (!balance) {
+      throw new AppError(`Reserved Balance with context "${this.context}" does not exist`, AppError.CODE.E_ITEM_EXIST);
+    }
+
+    if ((balance.balance + (this.delta)) < 0) {
+      throw new AppError('Invalid amount', AppError.CODE.E_INVALID_INPUT);
+    }
+    balance.balance += (this.delta);
     return balance.save().then((result) => result.populate('account').execPopulate());
   }
 }
