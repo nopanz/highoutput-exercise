@@ -17,6 +17,7 @@ module.exports = {
     '@typescript-eslint/indent': [2, 2],
     "import/no-named-as-default": 0,
     'no-underscore-dangle': 0,
+    'import/no-unresolved': 0,
     "@typescript-eslint/explicit-function-return-type": "off",
   },
 };

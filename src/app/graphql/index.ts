@@ -2,7 +2,7 @@ import typeDefs from './Schema';
 import resolvers from './Resolvers';
 import formatError from './FormatError';
 
-export  {
+export {
   typeDefs,
   resolvers,
   formatError,

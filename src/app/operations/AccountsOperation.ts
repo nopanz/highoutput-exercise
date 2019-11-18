@@ -1,6 +1,6 @@
-import Account from '../models/Account';
-import Balance from '../models/Balance';
-import AppError from '../graphql/AppError';
+import Account from '@app/models/Account';
+import Balance from '@app/models/Balance';
+import AppError from '@app/graphql/AppError';
 
 export enum BALANCE_TYPE {
   RESERVED = 'reserved',

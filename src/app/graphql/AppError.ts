@@ -13,6 +13,7 @@ class AppError extends Error {
       E_INVALID_INPUT: 'E_INVALID_INPUT',
       E_ACCOUNT_NOT_FOUND: 'E_ACCOUNT_NOT_FOUND',
       E_ITEM_EXIST: 'E_ITEM_EXIST',
+      E_ITEM_NOT_FOUND: 'E_ITEM_NOT_FOUND',
     };
   }
 }
