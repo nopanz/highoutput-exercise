@@ -73,7 +73,7 @@ class AccountsOperation implements AccountsOperation {
     }).exec();
 
     if (!balance) {
-      throw new AppError(`Reserved Balance with context "${this.context}" does not exist`, AppError.CODE.E_ITEM_EXIST);
+      throw new AppError(`Reserved Balance with context "${this.context}" does not exist`, AppError.CODE.E_ITEM_NOT_FOUND);
     }
 
     if ((balance.balance + (this.delta)) < 0) {
