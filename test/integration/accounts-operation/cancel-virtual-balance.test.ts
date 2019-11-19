@@ -7,7 +7,7 @@ import Account from '../../../src/app/models/Account';
 import Balance from '../../../src/app/models/Balance';
 
 
-export default function () {
+describe('Cancel Virtual Balance API', () => {
   let request: supertest.SuperTest<supertest.Test>;
 
   beforeEach(async () => {
@@ -85,4 +85,4 @@ export default function () {
     const deletedBalance = await Balance.findOne({ account: account._id, context: 'senku', type: 'virtual' }).exec();
     assert.isNotOk(deletedBalance);
   });
-}
+});

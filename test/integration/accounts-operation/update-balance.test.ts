@@ -6,7 +6,7 @@ import { UPDATE_BALANCE } from './query';
 import Account from '../../../src/app/models/Account';
 
 
-export default function () {
+describe('Update Balance API', () => {
   const accountId = '1234';
   let request: supertest.SuperTest<supertest.Test>;
 
@@ -62,4 +62,4 @@ export default function () {
 
     assert.equal(existingAccount && existingAccount.balance, expectedBalance);
   });
-}
+});

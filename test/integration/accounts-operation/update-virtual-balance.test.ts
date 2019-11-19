@@ -7,7 +7,7 @@ import Account from '../../../src/app/models/Account';
 import Balance from '../../../src/app/models/Balance';
 
 
-export default function () {
+describe('Update Virtual Balance API', () => {
   let request: supertest.SuperTest<supertest.Test>;
 
   beforeEach(async () => {
@@ -91,4 +91,4 @@ export default function () {
     assert.isOk(updatedBalance);
     assert.equal(updatedBalance && updatedBalance.balance, 50);
   });
-}
+});

@@ -5,10 +5,9 @@ import App from '../../../src/app/app';
 import { UPDATE_RESERVED_BALANCE } from './query';
 import Account from '../../../src/app/models/Account';
 import Balance from '../../../src/app/models/Balance';
-// import AppError from '../../../src/app/graphql/AppError';
 
 
-export default function () {
+describe('Update Reserved Balance API', () => {
   let request: supertest.SuperTest<supertest.Test>;
 
   beforeEach(async () => {
@@ -124,4 +123,4 @@ export default function () {
     assert.isOk(updatedBalance);
     assert.equal(updatedBalance && updatedBalance.balance, 90);
   });
-}
+});

@@ -7,7 +7,7 @@ import Account from '../../../src/app/models/Account';
 import Balance from '../../../src/app/models/Balance';
 
 
-export default function () {
+describe('Create Reserved Balance API', () => {
   let request: supertest.SuperTest<supertest.Test>;
 
   beforeEach(async () => {
@@ -76,4 +76,4 @@ export default function () {
     const updatedAccount = await Account.findById(account._id).exec();
     assert.equal(updatedAccount && updatedAccount.balance, 200 - 110);
   });
-}
+});
