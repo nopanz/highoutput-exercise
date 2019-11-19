@@ -16,6 +16,7 @@
     "@types/mongoose": "^5.5.30",
     "@types/node": "^12.12.7",
     "@types/ramda": "^0.26.33",
+    "@types/supertest": "^2.0.8",
     "@typescript-eslint/eslint-plugin": "^2.7.0",
     "@typescript-eslint/parser": "^2.7.0",
     "chai": "^4.2.0",
@@ -31,6 +32,7 @@
     "mocha": "^6.2.2",
     "nodemon": "^1.19.4",
     "prettier": "^1.19.1",
+    "supertest": "^4.0.2",
     "ts-node": "^8.5.0",
     "tsconfig-paths": "^3.9.0",
     "typescript": "^3.7.2"
@@ -39,10 +41,10 @@
     "serve:dev": "nodemon",
     "build": "rimraf ./build && tsc",
     "start": "npm run build && node build/index.js",
-    "test": "mocha --file test/global.ts -r  ts-node/register test/**/*.ts"
+    "test": "mocha --file test/global.ts -r ts-node/register -r tsconfig-paths/register test/**/*.ts"
   },
   "_moduleAliases": {
-    "@app" : "build/app",
+    "@app": "build/app",
     "@config": "build/config"
   }
 }

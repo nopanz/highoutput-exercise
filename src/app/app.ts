@@ -29,4 +29,5 @@ export default {
       console.log(`Server ready at http://localhost:3333${server.graphqlPath}`);
     });
   },
+  callback: () => app.callback(),
 };
