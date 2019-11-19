@@ -4,14 +4,13 @@ export interface Balance extends Document {
   balance: number;
   context?: string;
   type: string;
-  account: { balance: number};
+  account: string;
 }
 
 const schema = {
   balance: { type: Number, default: 0 },
   context: {
     type: String,
-    unique: true,
   },
   type: {
     type: String,

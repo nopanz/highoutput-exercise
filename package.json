@@ -2,6 +2,7 @@
   "dependencies": {
     "ajv": "^6.10.2",
     "apollo-server-koa": "^2.9.7",
+    "dataloader": "^2.0.0",
     "graphql": "^14.5.8",
     "koa": "^2.11.0",
     "module-alias": "^2.2.2",
@@ -41,7 +42,7 @@
     "serve:dev": "nodemon",
     "build": "rimraf ./build && tsc",
     "start": "npm run build && node build/index.js",
-    "test": "mocha" 
+    "test": "mocha"
   },
   "_moduleAliases": {
     "@app": "build/app",

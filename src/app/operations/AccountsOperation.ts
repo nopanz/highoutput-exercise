@@ -15,6 +15,14 @@ interface AccountsOperation {
 }
 
 class AccountsOperation implements AccountsOperation {
+  async getAccount() {
+    const account = await Account.findOne({ id: this.account }).exec();
+    if (!account) {
+      throw new AppError('Account does not exist', AppError.CODE.E_ACCOUNT_NOT_FOUND);
+    }
+    return account.toJSON();
+  }
+
   async updateBalance() {
     let account = await Account.findOne({ id: this.account }).exec();
     if (!account) {
@@ -36,7 +44,12 @@ class AccountsOperation implements AccountsOperation {
       throw new AppError('Account does not exist', AppError.CODE.E_ACCOUNT_NOT_FOUND);
     }
 
-    let balance = await Balance.findOne({ account: account._id, context: this.context }).exec();
+    let balance = await Balance.findOne({
+      account: account._id,
+      context: this.context,
+      type: BALANCE_TYPE.RESERVED,
+    }).exec();
+
     if (balance) {
       throw new AppError(`Reserved Balance with context "${this.context}" already exist`, AppError.CODE.E_ITEM_EXIST);
     }

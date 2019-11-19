@@ -1,4 +1,6 @@
+import { Account } from '@app/models/Account';
 import AccountsOperation from '../operations/AccountsOperation';
+import Loader from './Loader';
 
 export default {
   Mutation: {
@@ -61,5 +63,41 @@ export default {
       return true;
     },
   },
-
+  Query: {
+    account: async (root: object, { id }: {id: string}) => {
+      const op = new AccountsOperation();
+      op.account = id;
+      const foundAccount = await op.getAccount();
+      return foundAccount;
+    },
+  },
+  Account: {
+    reservedBalance: async (
+      parent: Account,
+      { context }: {context: string},
+      { loader }: {loader: Loader},
+    ) => {
+      const balance = await loader.reservedBalance.load(`${context}:${parent._id}`);
+      return (balance && balance.balance) || 0;
+    },
+    virtualBalance: async (
+      parent: Account,
+      { context }: {context: string},
+      { loader }: {loader: Loader}) => {
+      const balance = await loader.virtualBalance.load(`${context}:${parent._id}`);
+      return (balance && balance.balance) || 0;
+    },
+    availableBalance: async (
+      parent: Account,
+      { context }: {context: string},
+      { loader }: {loader: Loader}) => {
+      let availableBalance = 0;
+      const balances = await loader.availableBalance.load(`${context}:${parent._id}`);
+      if (balances.length > 0) {
+        availableBalance += balances.reduce((sum: number, balance) => sum + balance.balance, 0);
+      }
+      availableBalance += parent.balance;
+      return availableBalance;
+    },
+  },
 };
