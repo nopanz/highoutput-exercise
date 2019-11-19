@@ -132,7 +132,7 @@ class AccountsOperation implements AccountsOperation {
 
     balance.balance += (this.delta);
 
-    return balance.save();
+    await balance.save();
   }
 
   async cancelVirtualBalance() {
@@ -150,6 +150,28 @@ class AccountsOperation implements AccountsOperation {
     if (!balance) {
       throw new AppError(`Virtual Balance with context "${this.context}" does not exist`, AppError.CODE.E_ITEM_NOT_FOUND);
     }
+    await Balance.findByIdAndDelete(balance._id).exec();
+  }
+
+  async commitVirtualBalance() {
+    const account = await Account.findOne({ id: this.account }).exec();
+
+    if (!account) {
+      throw new AppError('Account does not exist', AppError.CODE.E_ACCOUNT_NOT_FOUND);
+    }
+    const balance = await Balance.findOne({
+      account: account._id,
+      context: this.context,
+      type: BALANCE_TYPE.VIRTUAL,
+    }).exec();
+
+    if (!balance) {
+      throw new AppError(`Virtual Balance with context "${this.context}" does not exist`, AppError.CODE.E_ITEM_NOT_FOUND);
+    }
+
+    account.balance += balance.balance;
+    await account.save();
+
     await Balance.findByIdAndDelete(balance._id).exec();
   }
 }

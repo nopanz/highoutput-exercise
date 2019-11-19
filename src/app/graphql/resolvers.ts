@@ -52,6 +52,14 @@ export default {
       await op.cancelVirtualBalance();
       return true;
     },
+    commitVirtualBalance: async (root: object, { account, context }:
+    {account: string; context: string}) => {
+      const op = new AccountsOperation();
+      op.account = account;
+      op.context = context;
+      await op.commitVirtualBalance();
+      return true;
+    },
   },
 
 };
