@@ -8,11 +8,11 @@ import commitVirtualBalanceTest from './commit-virtual-balance.test';
 
 
 describe('Accounts API', () => {
-  // describe('Update Balance API', () => updateBalanceTest());
-  // describe('Create Reserved Balance API', () => createReservedBalanceTest());
-  // describe('Update Reserved Balance API', () => updateReservedBalanceTest());
-  // describe('Release Reserved Balance API', () => releaseResevedBalanceTest());
-  // describe('Update Virtual Balance API', () => updateVirtualBalanceTest());
-  // describe('Cancel Virtual Balance API', () => cancelVirtualBalanceTest());
+  describe('Update Balance API', () => updateBalanceTest());
+  describe('Create Reserved Balance API', () => createReservedBalanceTest());
+  describe('Update Reserved Balance API', () => updateReservedBalanceTest());
+  describe('Release Reserved Balance API', () => releaseResevedBalanceTest());
+  describe('Update Virtual Balance API', () => updateVirtualBalanceTest());
+  describe('Cancel Virtual Balance API', () => cancelVirtualBalanceTest());
   describe('Commit Virtual Balance API', () => commitVirtualBalanceTest());
 });
