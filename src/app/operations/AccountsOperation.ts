@@ -18,8 +18,7 @@ class AccountsOperation implements AccountsOperation {
   async updateBalance() {
     let account = await Account.findOne({ id: this.account }).exec();
     if (!account) {
-      account = new Account({ id: this.account });
-      await account.save();
+      account = new Account({ id: this.account, balance: 0 });
     }
     const updatedBalance: number = account.balance + (this.delta || 0);
     if (updatedBalance >= 0) {
