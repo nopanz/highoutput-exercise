@@ -18,3 +18,7 @@ export const RELEASE_RESERVED_BALANCE = `mutation ($account: ID!, $context: Stri
 export const UPDATE_VIRTUAL_BALANCE = `mutation ($account: ID!, $delta: Float!, $context: String! ){
     updateVirtualBalance(account: $account,delta: $delta, context: $context)
   }`;
+
+export const CANCEL_VIRTUAL_BALANCE = `mutation ($account: ID!, $context: String!) {
+    cancelVirtualBalance(account: $account, context: $context)
+  }`;
