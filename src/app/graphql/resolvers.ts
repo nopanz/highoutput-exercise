@@ -44,6 +44,14 @@ export default {
       await op.updateVirtualBalance();
       return true;
     },
+    cancelVirtualBalance: async (root: object, { account, context }:
+    {account: string; context: string}) => {
+      const op = new AccountsOperation();
+      op.account = account;
+      op.context = context;
+      await op.cancelVirtualBalance();
+      return true;
+    },
   },
 
 };
