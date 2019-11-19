@@ -4,7 +4,7 @@ import supertest from 'supertest';
 import App from '../../../src/app/app';
 import { RELEASE_RESERVED_BALANCE } from './query';
 import Account from '../../../src/app/models/Account';
-import Balance, { Balance as BalanceInterface } from '../../../src/app/models/Balance';
+import Balance from '../../../src/app/models/Balance';
 
 
 export default function () {
