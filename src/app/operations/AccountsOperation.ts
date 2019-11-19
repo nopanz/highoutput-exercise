@@ -105,6 +105,35 @@ class AccountsOperation implements AccountsOperation {
     balance.balance = 0;
     await balance.save();
   }
+
+  async updateVirtualBalance() {
+    const account = await Account.findOne({ id: this.account }).exec();
+    if (!account) {
+      throw new AppError('Account does not exist', AppError.CODE.E_ACCOUNT_NOT_FOUND);
+    }
+
+    let balance = await Balance.findOne({
+      account: account._id,
+      context: this.context,
+      type: BALANCE_TYPE.VIRTUAL,
+    }).exec();
+
+    if (!balance) {
+      balance = new Balance({
+        account: account._id,
+        context: this.context,
+        type: BALANCE_TYPE.VIRTUAL,
+      });
+    }
+
+    if ((balance.balance + (this.delta)) < 0) {
+      throw new AppError('Invalid amount', AppError.CODE.E_INVALID_INPUT);
+    }
+
+    balance.balance += (this.delta);
+
+    return balance.save();
+  }
 }
 
 export default AccountsOperation;

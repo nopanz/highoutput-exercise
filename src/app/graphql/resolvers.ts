@@ -35,5 +35,15 @@ export default {
       await op.releaseReservedBalance();
       return true;
     },
+    updateVirtualBalance: async (root: object, { account, context, delta }:
+    {account: string; context: string; delta: number}) => {
+      const op = new AccountsOperation();
+      op.account = account;
+      op.delta = delta;
+      op.context = context;
+      await op.updateVirtualBalance();
+      return true;
+    },
   },
+
 };
