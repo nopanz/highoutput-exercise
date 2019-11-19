@@ -82,6 +82,29 @@ class AccountsOperation implements AccountsOperation {
     balance.balance += (this.delta);
     return balance.save().then((result) => result.populate('account').execPopulate());
   }
+
+  async releaseReservedBalance() {
+    const account = await Account.findOne({ id: this.account }).exec();
+
+    if (!account) {
+      throw new AppError('Account does not exist', AppError.CODE.E_ACCOUNT_NOT_FOUND);
+    }
+    const balance = await Balance.findOne({
+      account: account._id,
+      context: this.context,
+      type: BALANCE_TYPE.RESERVED,
+    }).exec();
+
+    if (!balance) {
+      throw new AppError(`Reserved Balance with context "${this.context}" does not exist`, AppError.CODE.E_ITEM_NOT_FOUND);
+    }
+
+    account.balance += balance.balance;
+    await account.save();
+
+    balance.balance = 0;
+    await balance.save();
+  }
 }
 
 export default AccountsOperation;

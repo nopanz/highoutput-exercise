@@ -27,5 +27,13 @@ export default {
       await op.updateReservedBalance();
       return true;
     },
+    releaseReservedBalance: async (root: object, { account, context }:
+    {account: string; context: string}) => {
+      const op = new AccountsOperation();
+      op.account = account;
+      op.context = context;
+      await op.releaseReservedBalance();
+      return true;
+    },
   },
 };

@@ -9,3 +9,7 @@ export const CREATE_RESERVED_BALANCE = `mutation ($account: ID!, $context: Strin
 export const UPDATE_RESERVED_BALANCE = `mutation ($account:ID!,$context: String!,$delta: Float!) {
     updateReservedBalance(account:$account, context: $context, delta: $delta)
   }`;
+
+export const RELEASE_RESERVED_BALANCE = `mutation ($account: ID!, $context: String!) {
+    releaseReservedBalance(account: $account, context: $context)
+  }`;
