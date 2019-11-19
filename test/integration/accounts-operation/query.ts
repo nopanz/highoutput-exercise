@@ -22,3 +22,7 @@ export const UPDATE_VIRTUAL_BALANCE = `mutation ($account: ID!, $delta: Float!, 
 export const CANCEL_VIRTUAL_BALANCE = `mutation ($account: ID!, $context: String!) {
     cancelVirtualBalance(account: $account, context: $context)
   }`;
+
+export const COMMIT_VIRTUAL_BALANCE = `mutation ($account: ID!, $context: String!) {
+    commitVirtualBalance(account: $account, context: $context)
+  }`;
