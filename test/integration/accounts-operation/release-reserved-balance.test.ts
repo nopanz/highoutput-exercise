@@ -84,7 +84,7 @@ describe('Release Reserved Balance API', () => {
     ).expect(200);
     const updatedBalance = await Balance.findOne({ account: account._id, context: 'saitama', type: 'reserved' }).exec();
 
-    assert.equal(updatedBalance && updatedBalance.balance, 0);
+    assert.isNotOk(updatedBalance);
 
     const updatedAccount = await Account.findById(account._id).exec();
 
