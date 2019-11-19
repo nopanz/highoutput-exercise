@@ -70,6 +70,12 @@ export default {
       const foundAccount = await op.getAccount();
       return foundAccount;
     },
+    accounts: async (root: object, { first, after }: {first: number; after: string}) => {
+      const op = new AccountsOperation();
+      op.first = first;
+      op.after = after;
+      return op.listAccounts();
+    },
   },
   Account: {
     reservedBalance: async (

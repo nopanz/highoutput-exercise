@@ -1,4 +1,4 @@
-import Account from '@app/models/Account';
+import Account, { Account as AccountInterface } from '@app/models/Account';
 import Balance from '@app/models/Balance';
 import AppError from '@app/graphql/AppError';
 
@@ -12,6 +12,13 @@ interface AccountsOperation {
   delta: number;
   context?: string;
   amount: number;
+  first: number;
+  after: string;
+}
+
+interface AccountEdge {
+  cursor: string;
+  node: AccountInterface;
 }
 
 class AccountsOperation implements AccountsOperation {
@@ -21,6 +28,39 @@ class AccountsOperation implements AccountsOperation {
       throw new AppError('Account does not exist', AppError.CODE.E_ACCOUNT_NOT_FOUND);
     }
     return account.toJSON();
+  }
+
+  async listAccounts() {
+    let accounts: AccountInterface[];
+    let hasNextPage = false;
+
+    if (this.after) {
+      accounts = await Account.find({ _id: { $gt: this.after } }).limit(this.first + 1);
+    } else {
+      accounts = await Account.find().limit(this.first + 1);
+    }
+
+    if (accounts.length > this.first) {
+      accounts.pop();
+      hasNextPage = true;
+    }
+
+    const edges: AccountEdge [] = accounts.map((account) => ({
+      node: account,
+      cursor: account._id,
+    }));
+
+    const lastItem = accounts.pop();
+
+    const count = await Account.countDocuments().exec();
+    return {
+      totalCount: count,
+      edges,
+      pageInfo: {
+        endCursor: (lastItem && lastItem._id) || null,
+        hasNextPage,
+      },
+    };
   }
 
   async updateBalance() {
