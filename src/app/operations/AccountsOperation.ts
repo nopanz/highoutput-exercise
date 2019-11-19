@@ -101,8 +101,7 @@ class AccountsOperation implements AccountsOperation {
     account.balance += balance.balance;
     await account.save();
 
-    balance.balance = 0;
-    await balance.save();
+    await Balance.findByIdAndDelete(balance._id).exec();
   }
 
   async updateVirtualBalance() {
