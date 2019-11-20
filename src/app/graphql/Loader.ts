@@ -1,7 +1,7 @@
 import DataLoader from 'dataloader';
 import { reduce } from 'ramda';
 import Balance, { Balance as BalanceInterface } from '@app/models/Balance';
-import { BALANCE_TYPE } from '@app/operations/AccountsOperation';
+import { BALANCE_TYPE } from './resolvers/account/mutation';
 
 
 interface Loader {

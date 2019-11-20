@@ -1,5 +1,5 @@
 import typeDefs from './Schema';
-import resolvers from './Resolvers';
+import resolvers from './resolvers';
 import formatError from './FormatError';
 import context from './Context';
 
