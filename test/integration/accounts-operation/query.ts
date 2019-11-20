@@ -26,3 +26,21 @@ export const CANCEL_VIRTUAL_BALANCE = `mutation ($account: ID!, $context: String
 export const COMMIT_VIRTUAL_BALANCE = `mutation ($account: ID!, $context: String!) {
     commitVirtualBalance(account: $account, context: $context)
   }`;
+
+
+export const GET_ACCOUNT = `query(
+  $id: ID!
+  $reservedContext: String!
+  $virtualContext: String!
+  $availableContext: String!
+) {
+  account(id: $id) {
+    id
+    balance
+    reservedBalance(context: $reservedContext)
+    virtualBalance(context: $virtualContext)
+    availableBalance(context: $availableContext)
+  }
+}
+
+`;
