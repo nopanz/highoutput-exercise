@@ -42,5 +42,30 @@ export const GET_ACCOUNT = `query(
     availableBalance(context: $availableContext)
   }
 }
-
 `;
+
+export const GET_ACCOUNTS = `query(
+  $first: Int!
+  $reservedContext: String!
+  $virtualContext: String!
+  $availableContext: String!
+  $after: Binary,
+) {
+  accounts(first: $first, after: $after) {
+    totalCount
+    pageInfo {
+      endCursor
+      hasNextPage
+    }
+    edges {
+      node {
+        id
+        balance
+        reservedBalance(context: $reservedContext)
+        virtualBalance(context: $virtualContext)
+        availableBalance(context: $availableContext)
+      }
+      cursor
+    }
+  }
+}`;
