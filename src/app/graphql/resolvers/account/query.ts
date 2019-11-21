@@ -10,15 +10,21 @@ export default {
       }
       return account;
     },
-    accounts: async (root: object, args: {first: number; after: string}) => {
+    accounts: async (root: object, args: {first: number; after: Buffer}) => {
       let accounts: Account[];
+      const first = args.first + 1;
 
       if (args.after) {
-        accounts = await AccountModel.find({ _id: { $gt: args.after } }).limit(args.first);
+        const after = Buffer.from(args.after).toString();
+        accounts = await AccountModel.find({ _id: { $gt: after } }).lean().limit(first);
       } else {
-        accounts = await AccountModel.find().limit(args.first);
+        accounts = await AccountModel.find().lean().limit(first);
       }
-      return accounts;
+
+      return {
+        nodes: accounts,
+        first: args.first,
+      };
     },
   },
 };

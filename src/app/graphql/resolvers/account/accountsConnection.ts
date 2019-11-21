@@ -3,23 +3,30 @@ import AccountModel, { Account } from '@app/models/Account';
 export default {
   AccountsConnection: {
     totalCount: () => AccountModel.countDocuments().exec(),
-    edges: (parent: Account[]) => parent,
-    pageInfo: (parent: Account[]) => (parent.length > 0 ? parent[parent.length - 1] : {}),
+    edges: (parent: {nodes: Account[]; first: number}) => {
+      if (parent.nodes.length > parent.first) return parent.nodes.slice(0, -1);
+      return parent.nodes;
+    },
+    pageInfo: (parent: object) => parent,
   },
   AccountsConnectionEdge: {
     node: (parent: object) => parent,
-    cursor: (parent: Account) => parent._id,
+    cursor: (parent: Account) => Buffer.from(parent._id.toString()),
   },
   PageInfo: {
-    endCursor: (parent: {_id: number | undefined}) => (parent && parent._id) || null,
-    hasNextPage: async (parent: {_id: number | undefined}) => {
-      let hasNextPage: Account | null;
-      if (parent !== undefined) {
-        hasNextPage = await AccountModel.findOne({ _id: { $gt: parent._id } }).exec();
-      } else {
-        return false;
+    endCursor: (parent: {nodes: Account[]; first: number}) => {
+      const { nodes, first } = parent;
+      if (nodes.length > first) {
+        const endCursor = nodes.slice(0, -1).pop();
+        return endCursor && Buffer.from(endCursor._id.toString());
       }
-      return hasNextPage instanceof AccountModel;
+      return nodes.length > 0 ? Buffer.from(nodes[nodes.length - 1]._id.toString()) : null;
     },
+    hasNextPage: (
+      parent: {
+        nodes: Account[];
+        first: number;
+      },
+    ) => parent.nodes.length > parent.first,
   },
 };
