@@ -50,5 +50,22 @@
   "_moduleAliases": {
     "@app": "build/app",
     "@config": "build/config"
-  }
+  },
+  "name": "highoutput-exercise",
+  "description": "The goal of this exercise is to implement an API service based on the given `GraphQL` schema. The code base must be written in `Typescript` and must run on top of `NodeJS`. The environment, including the third party services such as the database and the cache, must be setup using `docker-compose` and must start by running `docker-compose up -d`. The API service must start by running `npm start`. Unit and/or integration tests must be written and must cover at least 80% of the code base. Any database technology may be used in the implementation.",
+  "version": "1.0.0",
+  "main": "src/index.ts",
+  "directories": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nopanz/highoutput-exercise.git"
+  },
+  "author": "Rey Aleonar",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nopanz/highoutput-exercise/issues"
+  },
+  "homepage": "https://github.com/nopanz/highoutput-exercise#readme"
 }
