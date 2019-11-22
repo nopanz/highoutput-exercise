@@ -6,7 +6,7 @@ import AccountModel, { Account } from '../../../src/app/models/Account';
 // import Balance from '../../../src/app/models/Balance';
 import { GET_ACCOUNTS } from './query';
 
-describe.only('Accounts Query API', () => {
+describe('Accounts Query API', () => {
   let request: supertest.SuperTest<supertest.Test>;
 
   beforeEach(async () => {
