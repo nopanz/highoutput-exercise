@@ -49,7 +49,7 @@ export default {
       db.once('open', () => {
         console.log('Database Connected');
       });
-      console.log(`Server ready at http://localhost:3333${server.graphqlPath}`);
+      console.log(`Server ready at http://localhost:${PORT}${server.graphqlPath}`);
     });
   },
   callback: () => app.callback(),
