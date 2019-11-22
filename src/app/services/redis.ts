@@ -32,6 +32,11 @@ class Redis {
   async set(key: string, value: string) {
     return this.redisClient.set(key, value, 'EX', 60 * 60 * 24);
   }
+
+  async quit() {
+    const quitAsync = promisify(this.redisClient.quit).bind(this.redisClient);
+    return quitAsync();
+  }
 }
 
 

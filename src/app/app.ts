@@ -53,4 +53,5 @@ export default {
     });
   },
   callback: () => app.callback(),
+  mongoose,
 };
