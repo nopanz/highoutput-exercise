@@ -1,7 +1,8 @@
 
 const PORT = process.env.PORT || 3333;
+const REDIS_HOST = process.env.REDIS_HOST || 'localhost';
 
 export {
-  // eslint-disable-next-line import/prefer-default-export
   PORT,
+  REDIS_HOST,
 };
