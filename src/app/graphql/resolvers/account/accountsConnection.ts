@@ -11,16 +11,16 @@ export default {
   },
   AccountsConnectionEdge: {
     node: (parent: object) => parent,
-    cursor: (parent: Account) => Buffer.from(parent._id.toString()),
+    cursor: (parent: Account) => Buffer.from(parent._id.toString()).toString('base64'),
   },
   PageInfo: {
     endCursor: (parent: {nodes: Account[]; first: number}) => {
       const { nodes, first } = parent;
       if (nodes.length > first) {
         const endCursor = nodes.slice(0, -1).pop();
-        return endCursor && Buffer.from(endCursor._id.toString());
+        return endCursor && Buffer.from(endCursor._id.toString()).toString('base64');
       }
-      return nodes.length > 0 ? Buffer.from(nodes[nodes.length - 1]._id.toString()) : null;
+      return nodes.length > 0 ? Buffer.from(nodes[nodes.length - 1]._id.toString()).toString('base64') : null;
     },
     hasNextPage: (
       parent: {

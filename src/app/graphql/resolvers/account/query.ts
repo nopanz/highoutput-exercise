@@ -10,13 +10,13 @@ export default {
       }
       return account;
     },
-    accounts: async (root: object, args: {first: number; after: Buffer}) => {
+    accounts: async (root: object, args: {first: number; after: string}) => {
       let accounts: Account[];
       const first = args.first + 1;
 
       if (args.after) {
-        const after = Buffer.from(args.after).toString();
-        accounts = await AccountModel.find({ _id: { $gt: after } }).lean().limit(first);
+        const after = Buffer.from(args.after, 'base64');
+        accounts = await AccountModel.find({ _id: { $gt: after.toString() } }).lean().limit(first);
       } else {
         accounts = await AccountModel.find().lean().limit(first);
       }
