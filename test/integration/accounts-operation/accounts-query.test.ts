@@ -40,7 +40,7 @@ describe('Accounts Query API', () => {
     ).expect(200);
     const { accounts: { totalCount, pageInfo } } = response.body.data;
     assert.equal(totalCount, count);
-    assert.equal(Buffer.from(pageInfo.endCursor).toString(), endCursor && endCursor._id.toString());
+    assert.equal(pageInfo.endCursor, endCursor && Buffer.from(endCursor._id.toString()).toString('base64'));
     assert.equal(pageInfo.hasNextPage, true);
   });
 
@@ -64,7 +64,7 @@ describe('Accounts Query API', () => {
         query: GET_ACCOUNTS,
         variables: {
           first: 5,
-          after: afterCursor && Buffer.from(afterCursor._id.toString()),
+          after: afterCursor && Buffer.from(afterCursor._id.toString()).toString('base64'),
           reservedContext: 'tanjiro',
           virtualContext: 'naruto',
           availableContext: 'naruto',
@@ -73,7 +73,7 @@ describe('Accounts Query API', () => {
     ).expect(200);
     const { accounts: { totalCount, pageInfo } } = response.body.data;
     assert.equal(totalCount, 10);
-    assert.equal(Buffer.from(pageInfo.endCursor).toString(), endCursor && endCursor._id.toString());
+    assert.equal(pageInfo.endCursor, endCursor && Buffer.from(endCursor._id.toString()).toString('base64'));
     assert.equal(pageInfo.hasNextPage, false);
   });
 });
