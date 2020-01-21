@@ -1,5 +1,6 @@
 import AccountModel, { Account } from '@app/models/Account';
 import AppError from '@app/graphql/AppError';
+import os from 'os';
 
 export default {
   Query: {
@@ -26,5 +27,6 @@ export default {
         first: args.first,
       };
     },
+    host: async () => os.hostname(),
   },
 };

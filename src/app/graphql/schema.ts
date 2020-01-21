@@ -30,6 +30,7 @@ type AccountsConnection {
 type Query {
   account(id: ID!): Account!
   accounts(first: Int, after: Binary): AccountsConnection!
+  host: String
 }
 
 type Mutation {

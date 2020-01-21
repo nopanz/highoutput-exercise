@@ -1,12 +1,11 @@
 /* eslint-disable no-console */
 import redis from 'redis';
 import { promisify } from 'util';
-import { REDIS_HOST } from '@config/server';
 
 class Redis {
   private static instance: Redis
 
-  private redisClient = redis.createClient({ host: REDIS_HOST });
+  private redisClient = redis.createClient({ host: 'redis' });
 
   static getInstance(): Redis {
     if (!Redis.instance) {
