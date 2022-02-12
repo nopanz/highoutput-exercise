@@ -1,6 +1,6 @@
 {
   "dependencies": {
-    "ajv": "^6.10.2",
+    "ajv": "^6.12.3",
     "apollo-server-koa": "^2.9.7",
     "dataloader": "^2.0.0",
     "graphql": "^14.5.8",
